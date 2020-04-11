@@ -16,8 +16,8 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build . -t vsgheacr.azurecr.io/k8sdemo:${{ github.sha }}
-        docker push vsgheacr.azurecr.io/k8sdemo:${{ github.sha }}
+        docker build . -t vsgheacr.azurecr.io/vsdotnetapp:dev1.1
+        docker push vsgheacr.azurecr.io/vsdotnetapp:dev1.1
               
     # Set the target AKS cluster.
     - uses: Azure/aks-set-context@v1
@@ -31,7 +31,7 @@ jobs:
         container-registry-url: vsgheacr.azurecr.io
         container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
         container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-        secret-name: demo-k8s-secret
+        secret-name: demo-vsdotnetapp-secret
 
     - uses: Azure/k8s-deploy@v1
       with:
@@ -41,4 +41,4 @@ jobs:
         images: |
           demo.azurecr.io/k8sdemo:${{ github.sha }}
         imagepullsecrets: |
-          demo-k8s-secret
+          demo-vsdotnetapp-secret
