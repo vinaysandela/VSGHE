@@ -15,19 +15,10 @@ jobs:
         login-server: vsgheacr.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-    
-    - run:
-        docker build . -t vsgheacr.azurecr.io/k8sdemo:${{ github.sha }}
-
-  #  - uses: Azure/docker-login@v1
-  #    with:
-  #      login-server: vsgheacr.azurecr.io
-  #      username: ${{ secrets.REGISTRY_USERNAME }}
-  #      password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker pull vsgheacr.azurecr.io/k8sdemo:${{ github.sha }}
+        docker build . -t vsgheacr.azurecr.io/k8sdemo:${{ github.sha }}
         docker push vsgheacr.azurecr.io/k8sdemo:${{ github.sha }}
-      
+              
     # Set the target AKS cluster.
     - uses: Azure/aks-set-context@v1
       with:
