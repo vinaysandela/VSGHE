@@ -1,4 +1,5 @@
-FROM mcr.microsoft.com/dotnet/framework/sdk:4.8 AS build
+#FROM mcr.microsoft.com/dotnet/framework/sdk:4.8 AS build
+FROM mcr.microsoft.com/dotnet/framework/sdk:4.8 as build-env
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
