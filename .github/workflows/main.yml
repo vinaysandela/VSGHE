@@ -19,8 +19,9 @@ jobs:
         #docker build . -t vsgheacr.azurecr.io/vsdotnetapp:dev1.1
         #docker push vsgheacr.azurecr.io/vsdotnetapp:dev1.1
         docker build -t vsdotnetapp .
-        docker tag vsdotnetapp vsgheacr.azurecr.io/vsdotnetapp:dev1
+        docker tag vsdotnetapp vsgheacr.azurecr.io/vsdotnetapp
         docker push vsgheacr.azurecr.io/vsdotnetapp:dev1
+        #docker build . -t samplegroupacr.azurecr.io/csharp:1.2.2
               
     # Set the target AKS cluster.
     - uses: Azure/aks-set-context@v1
