@@ -16,8 +16,11 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build . -t vsgheacr.azurecr.io/vsdotnetapp:dev1.1
-        docker push vsgheacr.azurecr.io/vsdotnetapp:dev1.1
+        #docker build . -t vsgheacr.azurecr.io/vsdotnetapp:dev1.1
+        #docker push vsgheacr.azurecr.io/vsdotnetapp:dev1.1
+        docker build -t vsdotnetapp .
+        docker tag vsdotnetapp vsgheacr.azurecr.io/vsdotnetapp:dev1
+        docker push vsgheacr.azurecr.io/vsdotnetapp:dev1
               
     # Set the target AKS cluster.
     - uses: Azure/aks-set-context@v1
