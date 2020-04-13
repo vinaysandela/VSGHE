@@ -9,17 +9,40 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@master
+    - name: Docker Login 
+      env:
+        DOCKER_USER: ${{ secrets.REGISTRY_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
  #   - uses: Azure/docker-login@v1
  #     with:
  #       login-server: vsazurecr.azurecr.io
  #       username: ${{ secrets.REGISTRY_USERNAME }}
  #       password: ${{ secrets.REGISTRY_PASSWORD }}
-    - name: Build dotnetapp code
+    - name: Docker Login
       run: |
-        uses: Azure/docker-login@v1
-        with:
-         login-server: vsazurecr.azurecr.io
-         username: ${{ secrets.REGISTRY_USERNAME }}
-         password: ${{ secrets.REGISTRY_PASSWORD }}
          docker build . -t vsazurecr.azurecr.io/vsdotnetapp:${{ github.sha }}
-         
+		     docker push vsazurecr.azurecr.io/vsdotnetapp:${{ github.sha }}
+
+# Set the target AKS cluster.
+    - uses: Azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: VSGHE
+        resource-group: VSGHE
+        
+    - uses: Azure/k8s-create-secret@v1
+      with:
+        container-registry-url: vsazurecr.azurecr.io
+        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+        secret-name: demo-vsdotnetapp-secret
+
+    - uses: Azure/k8s-deploy@v1
+      with:
+        manifests: |
+          manifests/deployment.yml
+          manifests/service.yml
+        images: |
+          vsazurecr.azurecr.io/vsdotnetapp:${{ github.sha }}
+        imagepullsecrets: |
+          demo-vsdotnetapp-secret
