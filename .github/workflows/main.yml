@@ -16,7 +16,7 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
 
-        run: |
+    - run: |
          docker build . -t vsazurecr.azurecr.io/vsdotnetapp:${{ github.sha }}
          docker push vsazurecr.azurecr.io/vsdotnetapp:${{ github.sha }}
 # Set the target AKS cluster.
