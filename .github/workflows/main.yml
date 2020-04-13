@@ -21,8 +21,7 @@ jobs:
     - name: Docker Login
       run: |
          docker build . -t vsazurecr.azurecr.io/vsdotnetapp:${{ github.sha }}
-	 docker push vsazurecr.azurecr.io/vsdotnetapp:${{ github.sha }}
-
+         docker push vsazurecr.azurecr.io/vsdotnetapp:${{ github.sha }}
 # Set the target AKS cluster.
     - uses: Azure/aks-set-context@v1
       with:
