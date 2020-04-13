@@ -16,5 +16,10 @@ jobs:
  #       password: ${{ secrets.REGISTRY_PASSWORD }}
     - name: Build dotnetapp code
       run: |
+        uses: Azure/docker-login@v1
+        with:
+         login-server: vsazurecr.azurecr.io
+         username: ${{ secrets.REGISTRY_USERNAME }}
+         password: ${{ secrets.REGISTRY_PASSWORD }}
          docker build . -t vsazurecr.azurecr.io/vsdotnetapp:${{ github.sha }}
          
