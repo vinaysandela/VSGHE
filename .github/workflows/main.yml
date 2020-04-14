@@ -9,7 +9,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@master
-    
+    # test
     - uses: Azure/docker-login@v1
       with:
         login-server: vsgheacr.azurecr.io
