@@ -12,8 +12,8 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-       docker build . -t vsgheacr.azurecr.io/vsdotnetapp:1.0.0
-       docker push vsgheacr.azurecr.io/vsdotnetapp:1.0.0
+       docker build . -t vsazurecr.azurecr.io/vsdotnetapp:1.0.0
+       docker push vsazurecr.azurecr.io/vsdotnetapp:1.0.0
   #    docker build -t vsdotnetapp .
   #    docker tag vsdotnetapp vsgheacr.azurecr.io/vsdotnetapp
   #    docker push vsgheacr.azurecr.io/vsdotnetapp:dev1
@@ -39,6 +39,6 @@ jobs:
           manifests/deployment.yml
           manifests/service.yml
         images: |
-          vsgheacr.azurecr.io/vsdotnetapp:1.0.0
+          vsazurecr.azurecr.io/vsdotnetapp:1.0.0
         imagepullsecrets: |
           demo-vsdotnetapp-secret
