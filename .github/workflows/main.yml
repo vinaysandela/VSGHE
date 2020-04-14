@@ -1,27 +1,23 @@
-name: Build
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push]
+
 jobs:
   build:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@master
-    # test
+
     - uses: Azure/docker-login@v1
       with:
         login-server: vsgheacr.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        #docker build . -t vsgheacr.azurecr.io/vsdotnetapp:dev1.1
-        #docker push vsgheacr.azurecr.io/vsdotnetapp:dev1.1
-        docker build -t vsdotnetapp .
-        docker tag vsdotnetapp vsgheacr.azurecr.io/vsdotnetapp
-        docker push vsgheacr.azurecr.io/vsdotnetapp:dev1
-        #docker build . -t samplegroupacr.azurecr.io/csharp:1.2.2
+       docker build . -t vsgheacr.azurecr.io/vsdotnetapp:${{ github.sha }}
+       docker push vsgheacr.azurecr.io/vsdotnetapp:${{ github.sha }}
+  #    docker build -t vsdotnetapp .
+  #    docker tag vsdotnetapp vsgheacr.azurecr.io/vsdotnetapp
+  #    docker push vsgheacr.azurecr.io/vsdotnetapp:dev1
+  #    docker build . -t samplegroupacr.azurecr.io/csharp:1.2.2
               
     # Set the target AKS cluster.
     - uses: Azure/aks-set-context@v1
@@ -43,6 +39,6 @@ jobs:
           manifests/deployment.yml
           manifests/service.yml
         images: |
-          demo.azurecr.io/k8sdemo:${{ github.sha }}
+          vsgheacr.azurecr.io/vsdotnetapp:${{ github.sha }}
         imagepullsecrets: |
           demo-vsdotnetapp-secret
