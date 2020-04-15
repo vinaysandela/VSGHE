@@ -42,4 +42,4 @@ jobs:
      #        vsazurecr.azurecr.io/vsdotnetapp:v1.1
             #      vsazurecr.azurecr.io/vsdotnetapp:${{ github.sha }}
     #     imagepullsecrets: |
-          demo-vsdotnetapp-secret
+      #     demo-vsdotnetapp-secret
