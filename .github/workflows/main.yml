@@ -17,29 +17,29 @@ jobs:
         docker push vsazurecr.azurecr.io/vsdotnetapp:v1.1
   #    docker build . -t vsazurecr.azurecr.io/vsdotnetapp:1.0.0
   #    docker push vsazurecr.azurecr.io/vsdotnetapp:1.0.0
-  #    docker build . -t samplegroupacr.azurecr.io/csharp:1.2.2
+   #    docker build . -t samplegroupacr.azurecr.io/csharp:1.2.2
               
     # Set the target AKS cluster.
-    - uses: Azure/aks-set-context@v1
-      with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        cluster-name: VSGHE
-        resource-group: VSGHE
+ #    - uses: Azure/aks-set-context@v1
+ #       with:
+   #      creds: '${{ secrets.AZURE_CREDENTIALS }}'
+ #        cluster-name: VSGHE
+  #       resource-group: VSGHE
         
-    - uses: Azure/k8s-create-secret@v1
-      with:
-        container-registry-url: vsgheacr.azurecr.io
-        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
-        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-        secret-name: demo-vsdotnetapp-secret
+  #   - uses: Azure/k8s-create-secret@v1
+  #     with:
+   #      container-registry-url: vsgheacr.azurecr.io
+   #      container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+   #      container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+    #     secret-name: demo-vsdotnetapp-secret
 
-    - uses: Azure/k8s-deploy@v1
-      with:
-        manifests: |
-          manifests/deployment.yml
-          manifests/service.yml
-        images: |
-            vsazurecr.azurecr.io/vsdotnetapp:v1.1
+  #   - uses: Azure/k8s-deploy@v1
+ #      with:
+  #       manifests: |
+   #        manifests/deployment.yml
+   #        manifests/service.yml
+   #      images: |
+     #        vsazurecr.azurecr.io/vsdotnetapp:v1.1
             #      vsazurecr.azurecr.io/vsdotnetapp:${{ github.sha }}
-        imagepullsecrets: |
+    #     imagepullsecrets: |
           demo-vsdotnetapp-secret
