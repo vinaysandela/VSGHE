@@ -13,8 +13,8 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
         docker build -t vsdotnetapp .
-        docker tag vsdotnetapp vsazurecr.azurecr.io/vsdotnetapp:v1.1
-        docker push vsazurecr.azurecr.io/vsdotnetapp:v1.1
+        docker tag vsdotnetapp vsazurecr.azurecr.io/vsdotnetapp:v1.2
+        docker push vsazurecr.azurecr.io/vsdotnetapp:v1.2
   #    docker build . -t vsazurecr.azurecr.io/vsdotnetapp:1.0.0
   #    docker push vsazurecr.azurecr.io/vsdotnetapp:1.0.0
    #    docker build . -t samplegroupacr.azurecr.io/csharp:1.2.2
